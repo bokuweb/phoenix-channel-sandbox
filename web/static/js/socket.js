@@ -11,11 +11,13 @@ export default class SocketTest {
     this.channel.join()
       .receive("ok", resp => console.log("Joined successfully", resp))
       .receive("error", resp =>  console.log("Unable to join", resp));
-
-    this.channel.on("new:reply", message => console.log(message));
   }
 
-  send() {
-    this.channel.push("new:message", { msg: 'hoge' });
+  send(msg) {
+    this.channel.push("new:message", { msg });
+  }
+
+  addListener(key, fn) {
+    this.channel.on(key, fn);
   }
 }
